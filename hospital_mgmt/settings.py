@@ -74,15 +74,16 @@ WSGI_APPLICATION = 'hospital_mgmt.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+# https://docs.djangoproject.com/en/3.2/ref/settings/#  
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'hospital',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd5tahocoqrko0h',
+        'USER': 'sphqqauoptvnls',
+        'PASSWORD': 'b0e7dd98a4315df211e74246968aadad80162392851bc655047ee73bc4c312e5',
+        'HOST': 'ec2-52-5-247-46.compute-1.amazonaws.com',
+        'PORT': 5432,
     }
 }
 
