@@ -1,1 +1,1 @@
-web: waitress-serve --port=$POR hospital_mgmt.wsgi:application
+web: waitress-serve --port=$PORT hospital_mgmt.wsgi:application
