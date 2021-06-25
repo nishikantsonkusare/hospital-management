@@ -1,0 +1,48 @@
+{% extends 'hospital/receptionist/base.html' %}
+
+{% load static %}
+
+{% block title %} Dashboard {% endblock %}
+
+{% block page_location %} Dashboard {% endblock %}
+
+{% block main_content %}
+
+<div class="col-lg-8 h-100 mx-auto shadow">
+    <p class="text-center fs-4 fw-bold py-3 border-bottom">Previous Records</p>
+    <div class="row g-4 text-center border-bottom align-items-center pb-3">
+        {% for field in patient_data %}
+        <div class="col-lg-5">
+            <label for="patient_name" class="fs-5 fw-bold">Patient Name: </label><span
+                class="fs-5 fw-bold text-success"> {{field.first_name}} {{field.last_name}}</span>
+        </div>
+        <div class="col-lg-5">
+            <label for="appointment_no" class="fs-5 fw-bold">Contact No: </label><span
+                class="fs-5 fw-bold text-success"> {{field.profile.mobile}}</span>
+        </div>
+        {% endfor %}
+    </div>
+
+    <table class="table table-bordered table-light">
+        <thead class="table-dark">
+            <tr class="text-center">
+                <th>Sr. No.</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody class="text-center align-middle">
+            {% for field in records %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{field.date}}</td>
+                <td> <a href="/receptionist/showprescription/patient={{field.user}}/date={{field.date}}" target="_blank" class="btn btn-warning text-center rounded py-1 px-2"><i class="far fa-eye"></i>
+                        <span>View</span></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}

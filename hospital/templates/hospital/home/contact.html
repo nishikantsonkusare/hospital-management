@@ -1,0 +1,49 @@
+{% extends 'hospital/home/base.html' %}
+
+{% block title %} Contact Us {% endblock %}
+
+{% block main_content %}
+
+<div class="col-lg-4 mx-auto">
+    <form action="" method="post" class="p-3 border rounded">
+        <p class="text-center fs-4 fw-bold">Contact Form</p>
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter Full Name" autocomplete="off" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter Email Address" autocomplete="off" required>
+        </div>
+        <div class="mb-3">
+            <label for="mob" class="form-label">Mobile Number</label>
+            <input type="tel" maxlength="10" class="form-control" id="mob" placeholder="Enter Mobile Number" autocomplete="off" required>
+        </div>
+        <div class="mb-3">
+            <label for="msg" class="form-label">Message</label>
+            <textarea name="msg" class="form-control" id="msg" rows="3" placeholder="Write Message" required></textarea>
+        </div>
+        <button class="btn btn-primary col-12">Send Message</button>
+    </form>
+</div>
+
+<div class="col-lg-7 mx-auto p-3">
+
+    <iframe class="mb-3 w-100 border" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3722.2673980145796!2d79.09963881440856!3d21.10190299065444!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd4bf4907bfd231%3A0xd3ef79f82a0dddf3!2sParivartan%20Chowk%2C%20Shri%20Hari%20Nagar%2C%20Manewada%2C%20Nagpur%2C%20Maharashtra%20440034!5e0!3m2!1sen!2sin!4v1621092487711!5m2!1sen!2sin" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <p class="fs-4 fw-bold text-center">Address</p>
+            <p class="fs-5 text-secondary px-3">Plot No. 332/C, Akash Nagar, Near Hanuman Mandir, Manewada-Besa Road, Nagpur - 440034</p>
+        </div>
+        <div class="col-lg-6">
+            <p class="fs-4 fw-bold text-center">Contact</p>
+            <p class="fs-5 text-secondary"><i class="fas fa-envelope"></i> nishikant.sonkusare@gmail.com </p>
+            <p class="fs-5 text-secondary"><i class="fas fa-phone-alt"></i> +91 9545597866 </p>
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends 'hospital/admin/base.html' %}
+
+{% load static %}
+
+{% block title %} Dashboard {% endblock %}
+
+{% block page_location %} Dashboard {% endblock %}
+
+{% block main_content %}
+
+<div class="col-lg-8 h-100 mx-auto shadow">
+
+    <form action="/admin/appointment_list/" method="post" class="p-3">
+        {% csrf_token %}
+        <div class="row g-3 justify-content-center">
+            <div class="col-lg-3">
+                <select class="form-select" name="doctor_name" aria-label="Default select example" required>
+                    <option value="" selected>Select Doctor Name</option>
+                    <option value="All">All</option>
+                    {% for d in doctor %}
+                    <option value="{{d.user.first_name}} {{d.user.last_name}}">{{d.user.first_name}}
+                        {{d.user.last_name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <input class="col-lg-5 mx-1" type="text" name="date" id="datepick" placeholder="Select Appointment Date"
+                autocomplete="off" required>
+            <div class="col-lg-3">
+                <button type="submit" class="btn btn-primary mx-1 w-100"> Show </button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Appointment for today -->
+    <table class="table table-light table-bordered">
+        <thead class="table-dark text-center">
+            <tr>
+                <th>Sr. No.</th>
+                <th>Patient Name</th>
+                <th>Mobile No.</th>
+                <th>Appointment No.</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody class="text-center align-middle">
+            {% for field in app_list %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{field.full_name}}</td>
+                <td>{{field.mobile}}</td>
+                <td class='fw-bold'>{{field.appointment_no}}</td>
+                {% if field.appointment_status == False %}
+                <td><a type="button" class="btn-warning rounded fw-bold py-1 px-3 text-decoration-none text-dark"
+                        data-bs-toggle="modal" data-bs-target="#app_modal{{field.id}}">Pending</a>
+                </td>
+                {% else %}
+                <td><span class="bg-success text-center rounded fw-bold py-1 px-3">Confirm</span>
+                </td>
+                {% endif %}
+
+                <!-- Modal for Appointment Confirmation -->
+                <div class="modal fade" id="app_modal{{field.id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Appointment Confirmation</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="text-center fs-5 fw-bold">Do you want to confirmation appointment for
+                                    "{{field.full_name}}" ?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="/admin/appointment/conform/{{field.id}}" type="button"
+                                    class="btn btn-primary">Yes</a>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% if not app_list %}
+    <div class="text-secondary text-center fs-5 fw-bold pb-4">No Appointment on {{ show_date }}</div>
+    {% endif %}
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#datepick").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'yy-mm-dd',
+            yearRange: '+0:+1'
+        });
+        $("#anim").on("change", function () {
+            $("#datepicker").datepicker("option", "showAnim", "slideDown");
+        });
+    });
+</script>
+
+{% endblock %}

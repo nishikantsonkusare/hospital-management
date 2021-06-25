@@ -1,0 +1,66 @@
+{% extends 'hospital/receptionist/base.html' %}
+
+{% block title %} Profile {% endblock %}
+
+{% block page_location %} Profile {% endblock %}
+
+{% block main_content %}
+
+<div class="col-lg-8 col-xs-12 col-sm-12 col-md-12 mx-auto border border-light rounded shadow h-100">
+
+    <form action="/receptionist/profile/" method="POST" class="row g-3 p-3" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p class="fs-4 fw-bold text-center mb-2 text-secondary">Profile Information</p>
+        {{ add_profile_form.non_field.errors }}
+        <div class="col-lg-6">
+            <label for="{{profile_form.first_name.id_for_label}}" class="form-label">First Name</label>
+            {{profile_form.first_name}}
+            {{profile_form.first_name.errors}}
+        </div>
+        <div class="col-lg-6">
+            <label for="{{profile_form.last_name.id_for_label}}" class="form-label">Last Name</label>
+            {{profile_form.last_name}}
+            {{profile_form.last_name.errors}}
+        </div>
+        <div class="col-lg-6">
+            <label for="{{add_profile_form.age.id_for_label}}" class="form-label">Age</label>
+            <div class="input-group">
+                <span class="input-group-text"><span class="far fa-calendar-alt"></span></span>
+                {{add_profile_form.age}}
+            </div>
+            {{ add_profile_form.age.errors }}
+        </div>
+        
+        <div class="col-lg-6">
+            <label for="{{add_profile_form.blood_group.id_for_label}}" class="form-label">Blood Group</label>
+            {{add_profile_form.blood_group}}
+            {{add_profile_form.blood_group.errors}}
+        </div>
+        <div class="col-lg-6">
+            <label for="{{profile_form.email.id_for_label}}" class="form-label">Email</label>
+            {{profile_form.email}}
+            {{profile_form.email.errors}}
+        </div>
+        <div class="col-lg-6">
+            <label for="{{add_profile_form.mobile.id_for_label}}" class="form-label">Mobile Number</label>
+            {{add_profile_form.mobile}}
+            {{add_profile_form.mobile.errors}}
+        </div>
+        <div class="col-lg-6">
+            <label for="{{add_profile_form.address.id_for_label}}" class="form-label">Address</label>
+            {{add_profile_form.address}}
+            {{add_profile_form.address.errors}}
+        </div>
+        <div class="col-lg-6 mb-3">
+            <label for="{{add_profile_form.profile_pic.id_for_label}}" class="form-label">Profile Image</label>
+            {{add_profile_form.profile_pic}}
+            {{add_profile_form.profile_pic.errors}}
+        </div>
+
+        <button class="btn btn-success py-2 col-lg-12">Update Information</button>
+
+    </form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'hospital/admin/base.html' %}
+
+{% load static %}
+
+{% block title %} Dashboard {% endblock %}
+
+{% block page_location %} Dashboard {% endblock %}
+
+{% block main_content %}
+
+
+<div class="col-lg-8 h-100 mx-auto">
+
+    <div class="row g-3">
+        <div class="col-sm-3 border rounded shadow mx-auto p-3" style="background-color: #62E6FB;">
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="display-3 fw-bold mx-3">{{emp_count}}</span>
+                <span class="display-1 text-end"><i class="fas fa-user-tie"></i></span>
+            </div>
+            <p class="text-secondary text-center mt-3 mb-0 fs-4 fw-bold">Employees</p>
+        </div>
+        <div class="col-sm-3 border rounded shadow mx-auto p-3" style="background-color: #FDBB7C;">
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="display-3 fw-bold mx-3">{{patient_count}}</span>
+                <span class="display-1 text-end"><i class="fas fa-user-injured"></i></span>
+            </div>
+            <p class="text-secondary text-center mt-3 mb-0 fs-4 fw-bold">Patients</p>
+        </div>
+        <div class="col-sm-3 border rounded shadow mx-auto p-3" style="background-color: #DDFB62;">
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="display-3 fw-bold mx-3">{{pending_user}}</span>
+                <span class="display-1 text-end"><i class="fas fa-user-tag"></i></span>
+            </div>
+            <p class="text-secondary text-center mt-3 mb-0 fs-4 fw-bold">Pending Users</p>
+        </div>
+    </div>
+
+    <div class="shadow mt-5 p-3">
+        <p class="text-center text-secondary fs-4 fw-bold border-bottom pb-3">Doctor List</p>
+
+        <!-- Appointment for today -->
+        <table class="table table-light table-bordered" id="doctor" width='100%'>
+            <thead class="table-dark text-center">
+                <tr>
+                    <th>Sr. No.</th>
+                    <th>Doctor Name</th>
+                    <th>Department</th>
+                    <th>Mobile No.</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody class="text-center align-middle">
+                {% for field in doctor_list%}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{field.user.first_name}} {{field.user.last_name}}</td>
+                    <td>{{field.department}}</td>
+                    <td>{{field.mobile}}</td>
+                    <td>{{field.user.email}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+            $('#doctor').DataTable({
+                "dom": '<"top">rt<"bottom"p><"clear">',
+                "ordering": false,
+                "scrollX": true,
+                "pageLength": 5,
+            });
+        });
+</script>
+
+{% endblock %}

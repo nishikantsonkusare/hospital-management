@@ -1,0 +1,73 @@
+{% extends 'hospital/patient/userbase.html' %}
+
+{% block title %} New Appointment {% endblock %}
+
+{% block page_location %} New Appointment {% endblock %}
+
+{% block date %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css" integrity="sha512-okE4owXD0kfXzgVXBzCDIiSSlpXn3tJbNodngsTnIYPJWjuYhtJ+qMoc0+WUwLHeOwns0wm57Ka903FqQKM1sA==" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.js" integrity="sha512-jKxp7JHEN6peEmzmg6a7XJBORNTB0ITD2Pi+6FUkc16PCaNAJX2ahZ1ejn1p1uY37Pxyirn/0OMNZbITbEg3jw==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous"></script>
+
+{% endblock %}
+
+{% block content %}
+
+
+<div class="col-lg-8 col-xs-12 col-sm-12 col-md-12 border border-light rounded shadow p-3 mx-auto h-100">
+
+    <p class="text-center text-secondary fs-3 fw-bold mb-4 border-bottom pb-3">Create Appointment</p>
+
+    <form action="/patient/appointment/" method="post" onsubmit="return SelectDoctor()">
+        {% csrf_token %}
+        <div class="row mb-4">
+            <label for="{{appointment_form.app_date.id_for_label}}" class="col-sm-5 col-form-label text-end fs-6 fw-bold">Select Date</label>
+            <div class="col-sm-5 ">
+                {{appointment_form.app_date}}
+                {{appointment_form.app_date.errors}}
+            </div>
+        </div>
+        <div class="row mb-4">
+            <label for="doctor" class="col-sm-5 col-form-label text-end fs-6 fw-bold">Select Doctor</label>
+            <div class="col-sm-5 ">
+                <select class="form-select" id='doctor' name="doctor" required>
+                    <option value='None' selected>Please Select Doctor</option>
+                    {% for doctor in doctor_list %}
+                        <option value="{{doctor.user.first_name}} {{doctor.user.last_name}} | {{doctor.department}}">{{doctor.user.first_name}} {{doctor.user.last_name}} ({{doctor.department}}) </option>
+                    {% endfor %}    
+                </select>
+                <div class="errorlist" id="error"></div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button class="btn btn-info col-6 border mb-4 fs-6 fw-bold" type="submit">Submit</button>
+        </div>
+    </form>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#datepicker1").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'mm/dd/yy',
+            yearRange: '+0:+1'
+        });
+        $( "#anim" ).on( "change", function() {
+            $( "#datepicker" ).datepicker( "option", "showAnim", "slideDown");
+        });
+    });
+
+    function SelectDoctor(){
+        doctor_name = document.getElementById('doctor').value;
+        if (doctor_name == 'None'){
+            document.getElementById('error').innerHTML = 'Please select doctor name for appointment.';
+            return false;
+        }
+        return true;
+    }
+</script>
+
+{% endblock %}

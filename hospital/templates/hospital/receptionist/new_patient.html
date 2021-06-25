@@ -1,0 +1,102 @@
+{% extends 'hospital/receptionist/base.html' %}
+
+{% block title %} New Patient {% endblock %}
+
+{% block page_location %} New Patient {% endblock %}
+
+{% block main_content %}
+
+<div class="col-lg-8 mx-auto border border-light rounded shadow h-100">
+    <p class="text-center text-secondary fs-4 fw-bold py-3 border-bottom">New Patient</p>
+
+    <form action="/receptionist/new_patient/" method="post">
+        {% csrf_token %}
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="mb-3">
+                    <label for="first_name" class="form-label">First Name</label>
+                    <input type="text" name="first_name" class="form-control" id="first_name" placeholder="First Name" autocomplete="off" required>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="mb-3">
+                    <label for="last_name" class="form-label">Last Name</label>
+                    <input type="text" name="last_name" class="form-control" id="last_name" placeholder="Last Name" autocomplete="off" required>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" name="username" class="form-control" id="username" placeholder="Username" autocomplete="off" required>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" name="passwd" class="form-control" id="password" placeholder="Password" autocomplete="off" required>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="mb-3">
+                    <label for="mobile" class="form-label">Mobile No.</label>
+                    <input type="tel" name="mob" class="form-control" id="mobile" placeholder="Mobile No." autocomplete="off" required>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address</label>
+                    <input type="text" name="address" class="form-control" id="address" placeholder="Address">
+                </div>
+            </div>
+            <div class="col-lg-5 mb-3">
+                <label for="gender" class="form-label">Gender</label>
+                <select class="form-select" name="gender" aria-label="Default select example" autocomplete="off" required>
+                    <option value="" selected>Select Gender</option>
+                    <option value="1">Male</option>
+                    <option value="2">Female</option>
+                </select>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="mb-3">
+                    <label for="age" class="form-label">Age</label>
+                    <input type="number" name="age" class="form-control" id="age" placeholder="Age" autocomplete="off" required>
+                </div>
+            </div>
+            <div class="col-lg-5 mb-3">
+                <label for="blood_group" class="form-label">Blood Group</label>
+                <select class="form-select" name="blood_group" aria-label="Default select example" autocomplete="off" required>
+                    <option value="" selected>Select Blood Group</option>
+                    <option value="1">A+</option>
+                    <option value="2">B+</option>
+                    <option value="3">O+</option>
+                    <option value="4">AB+</option>
+                    <option value="5">A-</option>
+                    <option value="6">B-+</option>
+                    <option value="7">O-</option>
+                    <option value="8">AB-</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="text-center mb-3">
+            <button type="submit" class="btn btn-warning col-lg-6">Submit</button>
+        </div>
+
+    </form>
+
+</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'hospital/admin/base.html' %}
+
+{% block title %} Employee List {% endblock %}
+
+{% block page_location %} Employee List {% endblock %}
+
+{% block main_content %}
+
+<div class="col-lg-8 h-100 mx-auto shadow-sm p-3">
+
+    <form action="/admin/employee_list/" method="post" class="mb-4">
+        {% csrf_token %}
+        <div class="row g-3 justify-content-center">
+            <div class="col-lg-3">
+                <select class="form-select" name="search_by" aria-label="Default select example" required>
+                    <option value= "" selected>Search By</option>
+                    <option value="All">All</option>
+                    <option value="Name">Name</option>
+                    <option value="Mobile">Mobile Number</option>
+                </select>
+            </div>
+            <div class="col-lg-4">
+                <input type="text" name="get_text" id="get_text" class="form-control" placeholder="Type name or mobile number" autocomplete="off">
+            </div>
+            <button type="submit" class="btn btn-primary col-lg-3">Search</button>
+        </div>
+    </form>
+
+    <p class="text-secondary text-center pb-3 border-bottom fs-5 fw-bold">Employee List</p>
+
+    <table class="table table-light table-bordered" id="employee" width='100%'>
+        <thead class="table-dark text-center align-middle">
+            <tr>
+                <th>Sr. No.</th>
+                <th>Employee Name</th>
+                <th>Employee Division</th>
+                <th>Mobile Number</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>User Status</th>
+            </tr>
+        </thead>
+        <tbody class="text-center align-middle">
+            {% for field in emp %}
+            {% if field.user_type == "Doctor" or field.user_type == 'Receptionist' %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{field.user.get_full_name}}</td>
+                <td>{{field.user_type}}</td>
+                <td>{{field.mobile}}</td>
+                <td>{{field.user.email}}</td>
+                <td>{{field.address}}</td>
+                {% if field.user.is_active == True %}
+                <td><span class="bg-success text-center rounded fw-bold py-1 px-3">Active</span> </td>
+                {% else %}
+                <td><span class="bg-warning text-center rounded fw-bold py-1 px-3">Deactive</span></td>
+                {% endif %}
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+            $('#employee').DataTable({
+                "dom": '<"top">rt<"bottom"p><"clear">',
+                "ordering": false,
+                "scrollX": true,
+                "pageLength": 5,
+            });
+        });
+</script>
+
+{% endblock %}

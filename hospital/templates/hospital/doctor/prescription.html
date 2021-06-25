@@ -1,0 +1,92 @@
+{% extends 'hospital/doctor/base.html' %}
+
+{% load static %}
+
+{% block title %} Dashboard {% endblock %}
+
+{% block page_location %} Dashboard {% endblock %}
+
+{% block main_content %}
+
+<div class="col-lg-8 h-100 mx-auto shadow">
+    <p class="text-center fs-4 fw-bold py-3 border-bottom">Prescription for Patient</p>
+    <div class="row g-4 text-center border-bottom align-items-center pb-3">
+        {% for field in data %}
+        <div class="col-lg-5">
+            <label for="patient_name" class="fs-5 fw-bold">Patient Name: </label><span
+                class="fs-5 fw-bold text-success"> {{field.full_name}}</span>
+        </div>
+        <div class="col-lg-3">
+            <label for="appointment_no" class="fs-5 fw-bold">Appointment No: </label><span
+                class="fs-5 fw-bold text-success"> {{field.appointment_no}}</span>
+        </div>
+        <div class="col-lg-4">
+            <a href="/doctor/viewrecord/patient={{field.user}}" class="btn btn-warning"><i class="fas fa-clipboard me-2"></i><span class="fs-6 fw-bold">View
+                    Previous Records</span></a>
+        </div>
+
+    </div>
+    <form action="/doctor/prescription/appointment_id={{field.id}}" method="post" class="p-3">
+        {% csrf_token %}
+        <input type="hidden" name="user" value="{{field.user}}">
+        <input type="hidden" name="doc_name" value="{{field.doctor_name}}">
+        <input type="hidden" name="dept" value="{{field.department}}">
+        <input type="hidden" name="input_counter" id="counter" value='1'>
+        <button type="button" class="btn btn-warning align-middle" onclick="addTextBox()"><i
+                class="fas fa-plus-circle"></i><span class="ms-2 fw-bold">Prescription</span></button>
+        <div class="container" id='prescription_form'>
+            <div class="row my-2" id="row_id_1">
+                <div class="col-8" id="col_id_1"><input type="text" class="form-control my-2"
+                        placeholder="Medicine Name" name="prescription_1"></div>
+                <div class="col-3" id="d_col_id_1"><input type="number" class="form-control my-2"
+                        placeholder="No. of Days" name="days_1"></div>
+            </div>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-outline-success mt-3 col-6">Submit</button>
+        </div>
+        {% endfor %}
+    </form>
+</div>
+
+<script>
+    function addTextBox() {
+        form = document.getElementById('prescription_form');
+        counter = Number(document.getElementById('counter').value);
+
+        add_row_div = document.createElement('div')
+        add_row_div.setAttribute('class', 'row my-2')
+        add_row_div.setAttribute('id', 'row_id_' + String(counter + 1))
+        document.getElementById('prescription_form').appendChild(add_row_div);
+
+        p_add_col_div = document.createElement('div')
+        p_add_col_div.setAttribute('class', 'col-8')
+        p_add_col_div.setAttribute('id', 'col_id_' + String(counter + 1))
+        document.getElementById('row_id_' + String(counter + 1)).appendChild(p_add_col_div);
+
+        textBox = document.createElement('input')
+        textBox.setAttribute('type', 'text')
+        textBox.setAttribute('class', 'form-control my-2')
+        textBox.setAttribute('placeholder', 'Medicine Name')
+        textBox.setAttribute('name', 'prescription_' + String(counter + 1))
+
+        document.getElementById('col_id_' + String(counter + 1)).appendChild(textBox);
+
+        d_add_col_div = document.createElement('div')
+        d_add_col_div.setAttribute('class', 'col-3')
+        d_add_col_div.setAttribute('id', 'd_col_id_' + String(counter + 1))
+        document.getElementById('row_id_' + String(counter + 1)).appendChild(d_add_col_div);
+
+        textBox_days = document.createElement('input')
+        textBox_days.setAttribute('type', 'number')
+        textBox_days.setAttribute('class', 'form-control my-2')
+        textBox_days.setAttribute('placeholder', 'No. of Days')
+        textBox_days.setAttribute('name', 'days_' + String(counter + 1))
+
+        document.getElementById('d_col_id_' + String(counter + 1)).appendChild(textBox_days);
+
+        document.getElementById('counter').value = counter + 1;
+    }
+</script>
+
+{% endblock %}

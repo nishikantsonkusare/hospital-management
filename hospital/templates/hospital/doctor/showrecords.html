@@ -1,0 +1,67 @@
+<html>
+
+<head>
+  <title>
+    Prescription
+  </title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    table thead tr th {
+      font-size: 16px;
+      border-bottom: 1px solid #000000;
+    }
+    table tbody tr td{
+      padding: 5px 0;
+      font-size: 16px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div style="font-size: 26px; font-style: italic; text-align: center;">Hospital Name</div>
+  <div style="font-size: 20px; margin-top: 20px; font-style: italic; text-align: center;"> Dr. {{doc_name}} <span
+      style="font-size: 14px;">(M.B.B.S, Physician)</span></div>
+  <div style="font-size: 14px; text-align: center;">Manewada-Besa Road,<br>Parivartan Chowk, Manewada<br>Nagpur - 440034
+    <br>Mobile No. / Ph No.: 9545597866 / 0712-232422</div>
+  <br>
+  <p style="padding-top: 30px;">
+    <div style="font-size: 16px;">
+    {% for field in user_data %}
+      Name: {{field.first_name}} {{field.last_name}}
+    {% endfor %}
+    </div>
+    <div style="font-size: 14px;">
+      Date: {{date}}
+    </div>
+  </p>
+  <hr>
+  <table>
+    <thead style="border-bottom: 1px solid black;">
+      <tr>
+        <th>Sr. No.</th>
+        <th>Medicine Name</th>
+        <th>For Days</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      {% for field in records %}
+      <tr>
+        <td style="text-align: center;">{{forloop.counter}}</td>
+        <td>{{field.prescription}}</td>
+        <td style="text-align: center;">{{field.days}} Days</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p style="text-align: right; font-size: 14px; margin: 50px 25px 0 0;">Doctor Signature ..............................</p>
+  <hr>
+</body>
+
+</html>

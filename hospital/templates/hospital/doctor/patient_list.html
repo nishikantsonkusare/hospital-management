@@ -1,0 +1,50 @@
+{% extends 'hospital/doctor/base.html' %}
+
+{% load static %}
+
+{% block title %} Patient Information {% endblock %}
+
+{% block page_location %} Patient Information {% endblock %}
+
+{% block main_content %}
+
+<div class="col-lg-8 h-100 mx-auto shadow p-3">
+
+    <p class="text-center text-secondary fs-4 fw-bold pb-3 border-bottom">Patient List</p>
+
+    <!-- Appointment for today -->
+    <table class="table table-light table-bordered" id="patient_data">
+        <thead class="table-dark text-center">
+            <tr>
+                <th>Sr. No.</th>
+                <th>Patient Name</th>
+                <th>Mobile No.</th>
+                <th>Medical Records</th>
+            </tr>
+        </thead>
+        <tbody class="text-center align-middle">
+            {% for field in patient_list %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{field.full_name}}</td>
+                <td>{{field.mobile}}</td>
+                <td><a href="/doctor/viewrecord/patient={{field.user}}" class="btn btn-warning"><i class="fas fa-clipboard me-2"></i><span class="fs-6 fw-bold">View Records</span></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+            $('#patient_data').DataTable({
+                "dom": '<"top">rt<"bottom"p><"clear">',
+                "ordering": false,
+                "pageLength": 5,
+                // "scrollX": true,
+            });
+        });
+</script>
+
+{% endblock %}

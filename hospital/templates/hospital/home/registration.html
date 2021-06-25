@@ -1,0 +1,77 @@
+{% extends 'hospital/home/base.html' %}
+{% load static %}
+
+{% block title %} Registration {% endblock %}
+
+{% block main_content %}
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        <strong>Success! </strong>{{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+{% endif %}
+
+<div class="col-lg-7 p-3 mx-auto">
+    <div class="fs-1 fw-bold text-center mb-3 text-secondary">Hospital Management System</div>
+    <img class="col-12 p-3 border rounded shadow-sm" src="{% static 'img/hms.png' %}" alt="HMS">
+</div>
+
+<div class="col-lg-4 p-3 mt-5 rounded shadow mx-auto h-100">
+    <form action="" method="post">
+        {% csrf_token %}
+      <p class="text-center fs-4 fw-bold mb-3 text-uppercase text-secondary">registration</p>
+
+        <!-- User Type Selection -->
+        <div class="text-center mb-3">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="user_type" id="inlineRadio1" value="Patient">
+                <label class="form-check-label" for="inlineRadio1">Patient</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="user_type" id="inlineRadio2" value="Receptionist">
+                <label class="form-check-label" for="inlineRadio2">Receptionist</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="user_type" id="inlineRadio3" value="Doctor">
+                <label class="form-check-label" for="inlineRadio3">Doctor</label>
+              </div>
+        </div>
+
+      <div class="form-floating mb-4">
+        {{ register.first_name }}
+        <label for="{{register.first_name.id_for_label}}">First Name</label>
+        {{ register.first_name.errors }}
+      </div>
+      <div class="form-floating mb-4">
+        {{ register.last_name}}
+        <label for="{{register.last_name.id_for_label}}">Last Name</label>
+        {{ register.last_name.errors }}
+      </div>
+      <div class="form-floating mb-4">
+        {{ register.email }}
+        <label for="{{ register.email.id_for_label }}">Email address</label>
+        {{ register.email.errors }}
+      </div>
+      <div class="form-floating mb-4">
+        {{ register.username }}
+        <label for="{{register.username.id_for_label}}">Username</label>
+        {{ register.username.errors }}
+      </div>
+      <div class="form-floating mb-4">
+        {{ register.password}}
+        <label for="{{register.password.id_for_label}}">Password</label>
+        {{register.password.errors}}
+      </div>
+      <button class="btn btn-success col-12 mb-4">Register</button>
+      <div class="text-center">
+        <span class="fs-6 fw-bold">Have an account? <a href="/"
+            class="text-decoration-none">Login Here</a></span>
+      </div>
+    </form>
+
+  </div>
+
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends 'hospital/patient/userbase.html' %}
+
+{% block title %} Dashboard {% endblock %}
+
+{% block page_location %} Dashboard {% endblock %}
+
+{% block content %}
+
+
+<div class="col-lg-8 col-xs-12 col-sm-12 col-md-12 border border-light rounded shadow p-3 mx-auto h-100">
+    <!-- Tab Navigation Menu of Body -->
+    <ul class="nav nav-pills nav-fill mb-3 border-bottom" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link fw-bold active" id="pills-appointment-tab" data-bs-toggle="pill"
+                data-bs-target="#pills-appointment" type="button" role="tab" aria-controls="pills-appointment"
+                aria-selected="true">Appointment</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link fw-bold" id="pills-precscription-tab" data-bs-toggle="pill"
+                data-bs-target="#pills-precscription" type="button" role="tab" aria-controls="pills-precscription"
+                aria-selected="false">Prescriptions</button>
+        </li>
+        <!-- <li class="nav-item" role="presentation">
+            <button class="nav-link fw-bold" id="pills-medical-tab" data-bs-toggle="pill"
+                data-bs-target="#pills-medical" type="button" role="tab" aria-controls="pills-medical"
+                aria-selected="false">Medical Records</button>
+        </li> -->
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-appointment" role="tabpanel"
+            aria-labelledby="pills-appointment-tab">
+            <!-- Appointment Tab Data -->
+            <table class="table table-bordered table-light rounded w-100" id="appt_table">
+                <thead class="table-dark">
+                    <tr class="text-center">
+                        <th>Doctor Name</th>
+                        <th>Appointment Date</th>
+                        <th>Booking Date</th>
+                        <th>Fees</th>
+                        <th>Appointment No</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody class="pe-none text-center">
+                    {% for field in appointment_data %}
+                    <tr>
+                        <td>Dr. {{field.doctor_name}}</td>
+                        <td>{{field.app_date}}</td>
+                        <td>{{field.book_date}}</td>
+                        <td>&#x20B9; {{field.fees}}</td>
+                        <td class="text-center fw-bold">{{field.appointment_no}}</td>
+                        {% if field.appointment_status == False %}
+                        <td><span class="bg-warning text-center rounded fw-bold py-1 px-3">Pending</span>
+                        </td>
+                        {% else %}
+                        <td><span class="bg-success text-center rounded fw-bold py-1 px-3">Confirm</span>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+
+        </div>
+        <div class="tab-pane fade" id="pills-precscription" role="tabpanel" aria-labelledby="pills-precscription-tab">
+            <!-- Prescription Table -->
+
+            <table class="table table-light table-bordered rounded w-100" id="pres_table">
+                <thead class="table-dark text-center style="width:100%">
+                    <tr>
+                        <th >Sr. No.</th>
+                        <th nowrap>Date</th>
+                        <th nowrap>Created By</th>
+                        <th nowrap>Action</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center align-middle">
+                    {% for field in prescription_data %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{field.date}}</td>
+                        <td>Dr. {{field.doctor_name}}</td>
+                        <td nowrap><a href="/patient/prescription/user={{field.user}}/doctor_name={{field.doctor_name}}/date={{field.date}}" class="btn btn-warning text-decoration-none py-1 px-2 rounded" target="_blank"><i
+                                    class="far fa-eye mx-1"></i><span>View</span> </a> </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+        <!-- <div class="tab-pane fade" id="pills-medical" role="tabpanel" aria-labelledby="pills-medical-tab">3rd Tab</div> -->
+    </div>
+
+</div>
+
+
+{% endblock %}

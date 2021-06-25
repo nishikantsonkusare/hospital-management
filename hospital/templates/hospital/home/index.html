@@ -1,0 +1,53 @@
+{% extends 'hospital/home/base.html' %}
+{% load static %}
+
+{% block title %} Home {% endblock %}
+
+{% block main_content %}
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        <strong class="text-capitalize">{{ message.tags }}! </strong>{{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+{% endif %}
+
+<div class="col-lg-7 p-3 mx-auto">
+  <div class="fs-1 fw-bold text-center mb-3 text-secondary">Hospital Management System</div>
+  <img class="col-12 p-3 border rounded shadow-sm" src="{% static 'img/hms.png' %}" alt="HMS">
+</div>
+
+<div class="col-lg-4 h-100">
+
+  {% if login_form.non_field_errors %}
+    {% for err in login_form.non_field_errors %}
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error!</strong> {{ err }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <form action="/" method="post" class="p-3 mt-5 rounded shadow mx-auto">
+    {% csrf_token %}
+    <p class="text-center fs-4 fw-bold mb-3 text-uppercase text-secondary">Login</p>
+    <div class="form-floating mb-4">
+      {{ login_form.username}}
+      <label for="{{login_form.username.id_for_label}}">Username</label>
+    </div>
+    <div class="form-floating mb-4">
+      {{login_form.password}}
+      <label for="{{login_form.password.id_for_label}}">Password</label>
+    </div>
+    <button class="btn btn-success col-12 mb-4">LOGIN</button>
+    <div class="text-center">
+      <span class="fs-6 fw-bold">Don't have an account? <a href="/registration"
+          class="text-decoration-none">Register</a></span>
+    </div>
+  </form>
+
+</div>
+
+{% endblock %}

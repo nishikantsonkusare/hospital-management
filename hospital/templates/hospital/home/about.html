@@ -1,0 +1,24 @@
+{% extends 'hospital/home/base.html' %}
+
+{% load static %}
+
+{% block title %} About {% endblock %}
+
+{% block main_content %}
+
+<div class="container mb-5">
+    <div class="display-3 text-center mb-3">About</div>
+
+    <div class="row g-3">
+        <div class="col-lg-3 mx-auto mt-2">
+            <img class="p-1 col-12 border rounded shadow" src="{% static 'img/about_pic.jpg' %}" alt="About">
+            <p class="fs-3 fw-bold mt-3 text-center">Nishikant Sonkusare</p>
+            <p class="text-secondary text-center">Founder and President</p>
+        </div>
+        <div class="col-lg-7 mx-auto">
+            {% lorem 5 p %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'hospital/doctor/base.html' %}
+
+{% load static %}
+
+{% block title %} Dashboard {% endblock %}
+
+{% block page_location %} Dashboard {% endblock %}
+
+{% block main_content %}
+
+<div class="col-lg-8 h-100 mx-auto shadow">
+    <p class="text-center text-secondary fs-4 fw-bold border-bottom p-3">Today Appointments</p>
+
+    <!-- Appointment for today -->
+    <table class="table table-light table-bordered">
+        <thead class="table-dark text-center">
+            <tr>
+                <th>Sr. No.</th>
+                <th>Patient Name</th>
+                <th>Mobile No.</th>
+                <th>Appointment No.</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            {% for field in appointment_data%}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{field.full_name}}</td>
+                <td>{{field.mobile}}</td>
+                <td class='fw-bold'>{{field.appointment_no}}</td>
+                <td> <a href="/doctor/prescription/appointment_id={{field.id}}" class="bg-success text-decoration-none text-center text-light rounded py-1 px-2"><i class="far fa-eye"></i> <span>View</span> </a> </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}
